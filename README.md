@@ -67,19 +67,3 @@ POST /api/logout - Clear admin session
 GET /api/inquiries - Fetch all inquiries (requires authentication)
 
 DELETE /api/inquiries/:id - Delete an inquiry by ID (requires authentication)
-
-#### Project Structure
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.jsx
-│   │   ├── index.css
-│   │   └── main.jsx
-│   └── package.json
-├── server/
-│   ├── db.js
-│   └── index.js
-├── .env.example
-├── package.json
-└── README.md
