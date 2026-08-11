@@ -23,12 +23,15 @@ export default function Contact({ navigate }) {
         }));
     };
 
+    const api_url = import.meta.env.VITE_API_URL;
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus({ loading: true, success: false, error: null });
 
         try {
-            const response = await fetch('http://localhost:3000/api/inquiries', {
+            const response = await fetch(`${api_url}/api/inquiries`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

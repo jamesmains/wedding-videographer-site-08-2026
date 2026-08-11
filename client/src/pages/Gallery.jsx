@@ -5,11 +5,14 @@ export default function Gallery({ navigate }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const api_url = import.meta.env.VITE_API_URL;
+
+
     useEffect(() => {
         async function fetchGalleryVideos() {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:3000/api/videos?category=gallery');
+                const response = await fetch(`${api_url}/api/videos?category=gallery`);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,7 +56,7 @@ export default function Gallery({ navigate }) {
             <div className="thumbnail-wrapper">
               {video.thumbnail_url ? (
                 <img 
-                  src={`http://localhost:3000${video.thumbnail_url}`} 
+                  src={`${api_url}${video.thumbnail_url}`} 
                   alt={video.title} 
                   className="video-thumbnail"
                 />

@@ -5,13 +5,16 @@ export default function Home({ navigate }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const api_url = import.meta.env.VITE_API_URL;
+
+
     useEffect(() => {
         async function fetchFeaturedVideos() {
             try {
                 setLoading(true);
 
                 // Need to set env route for production vs development
-                const response = await fetch('http://localhost:3000/api/videos?category=featured');
+                const response = await fetch(`${api_url}/api/videos?category=featured`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -56,7 +59,7 @@ export default function Home({ navigate }) {
                             <div className="thumbnail-wrapper">
                                 {video.thumbnail_url ? (
                                     <img
-                                        src={`http://localhost:3000${video.thumbnail_url}`}
+                                        src={`${api_url}${video.thumbnail_url}`}
                                         alt={`Thumbnail for ${video.title}`}
                                         className="video-thumbnail"
                                     />

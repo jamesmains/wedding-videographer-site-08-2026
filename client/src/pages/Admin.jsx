@@ -5,6 +5,7 @@ export default function Admin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(null);
+  const api_url = import.meta.env.VITE_API_URL;
 
   // Dashboard Data
   const [inquiries, setInquiries] = useState([]);
@@ -23,7 +24,7 @@ export default function Admin() {
 
   // Check existing session on mount
   useEffect(() => {
-    fetch('http://localhost:3000/api/admin/check', { credentials: 'include' })
+    fetch(`${api_url}/api/admin/check`, { credentials: 'include' })
       .then(res => res.json())
       .then(data => {
         if (data.authenticated) {
@@ -36,8 +37,8 @@ export default function Admin() {
   const fetchDashboardData = async () => {
     try {
       const [inqRes, vidRes] = await Promise.all([
-        fetch('http://localhost:3000/api/inquiries', { credentials: 'include' }),
-        fetch('http://localhost:3000/api/videos')
+        fetch(`/api/inquiries`, { credentials: 'include' }),
+        fetch(`${api_url}/api/videos`)
       ]);
 
       if (inqRes.ok) setInquiries(await inqRes.json());
@@ -52,7 +53,7 @@ export default function Admin() {
     setLoginError(null);
 
     try {
-      const res = await fetch('http://localhost:3000/api/admin/login', {
+      const res = await fetch(`${api_url}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // Sends session cookie
@@ -77,7 +78,7 @@ export default function Admin() {
     if (thumbnailFile) formData.append('thumbnail', thumbnailFile);
 
     try {
-      const res = await fetch('http://localhost:3000/api/videos', {
+      const res = await fetch(`${api_url}/api/videos`, {
         method: 'POST',
         credentials: 'include',
         body: formData
@@ -96,7 +97,7 @@ export default function Admin() {
 
   const handleDeleteVideo = async (id) => {
     if (!window.confirm('Delete this video?')) return;
-    await fetch(`http://localhost:3000/api/videos/${id}`, {
+    await fetch(`${api_url}/api/videos/${id}`, {
       method: 'DELETE',
       credentials: 'include'
     });
@@ -105,7 +106,7 @@ export default function Admin() {
 
   const handleDeleteInquiry = async (id) => {
     if (!window.confirm('Delete this inquiry?')) return;
-    await fetch(`http://localhost:3000/api/inquiries/${id}`, {
+    await fetch(`${api_url}/api/inquiries/${id}`, {
       method: 'DELETE',
       credentials: 'include'
     });
